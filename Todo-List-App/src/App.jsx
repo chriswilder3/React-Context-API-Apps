@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './App.css'
 import { TodoContextProvider, useTodo } from './contexts/TodoContext'
@@ -84,6 +84,52 @@ function App() {
          })
       })
   }
+
+  const toggleComplete = ( id ) => {
+      setToDoList( (prevTodoList) =>{
+          prevTodoList.map( (task) =>{
+             if(task.id == id){
+               return {...task, completed: !task.completed}
+             }
+             else{
+              return task;
+             }
+          })
+      })
+  }
+  // IMP : Make sure not to modify any element directly inside any of these
+  // functions, ex : even task element must be not stored and then changed
+  // ex : const temp = task
+  //      temp['completed'] = false
+  //      return temp;
+  // Its wrong. 
+  // Why? Because it violated React state immulatabilty.
+  // Note that even task is part of state(so saying task[a] = b)
+  // without the use of setter is wrong.
+
+  // Hence best practice is to use single stmt returns in setters.
+  
+  
+  // React components lose their state when the page is reloaded, 
+  // as the state only exists in memory during the component's lifecycle.
+
+  // By saving the todoList to localStorage and reloading it when the 
+  // app starts, the todoList can persist even if the user refreshes 
+  // the page or closes and reopens the browser. Hence
+  // We need to save the todoList to memory when changing, but first
+  // We need to load it as well from the localstorage when app starts
+
+  // lets first creating loading one.
+  useEffect( () =>{
+    const todoListFromMemory = localStorage.getItem('todolist')
+    if( todoListFromMemory && todoListFromMemory.length > 0){
+      // if to do list exists in memory and its size > 0(ie its not empty)
+      // We will set it as the val of todoList state
+      setToDoList( todoListFromMemory);
+    }
+  }, [])
+
+  // But note that we 
 
   return (
     < TodoContextProvider value={{ todoList, appendTodoList, updateTodoList, deleteTodoList, toggleComplete}}>
