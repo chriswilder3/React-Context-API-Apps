@@ -135,7 +135,7 @@ function App() {
 
   // Hence lets have another useEffect
   useEffect( () =>{
-    const todoListFromMemory = localStorage.setItem('todoList', JSON.stringify(todoList));
+    localStorage.setItem('todoList', JSON.stringify(todoList));
     
   }, [ todoList])
 
