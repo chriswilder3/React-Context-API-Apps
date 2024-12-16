@@ -121,7 +121,7 @@ function App() {
 
   // lets first creating loading one.
   useEffect( () =>{
-    const todoListFromMemory = localStorage.getItem('todolist')
+    const todoListFromMemory = JSON.parse(localStorage.getItem('todoList'))
     if( todoListFromMemory && todoListFromMemory.length > 0){
       // if to do list exists in memory and its size > 0(ie its not empty)
       // We will set it as the val of todoList state
@@ -129,7 +129,15 @@ function App() {
     }
   }, [])
 
-  // But note that we 
+  // Note that we need to save whenevever the state ie, todoList updates
+  // But we cant do it in the prev useEffect which is reserved to run
+  // only once per load. 
+
+  // Hence lets have another useEffect
+  useEffect( () =>{
+    const todoListFromMemory = localStorage.setItem('todoList', JSON.stringify(todoList));
+    
+  }, [ todoList])
 
   return (
     < TodoContextProvider value={{ todoList, appendTodoList, updateTodoList, deleteTodoList, toggleComplete}}>
