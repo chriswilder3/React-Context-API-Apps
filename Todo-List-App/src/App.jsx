@@ -45,6 +45,46 @@ function App() {
           })
   }
 
+  const updateTodoList = (id, updatedTask) => {
+      setToDoList( (prevTodoList) =>{
+        // It works similar as before. But we need to find the exact task
+        // in the list first. Looping is best for this.
+        prevTodoList.map( (task) =>{
+            if(task.id === id){
+              // Look at the current syntax of map() on chatgpt pdf map and react.
+                return {id:id, ...updatedTask};
+                // We update this particular task with new data, 
+                // ie, JS object with new message and the same id 
+            }
+            else {
+              return task;
+              // other wise keep as it is
+            } 
+          // We can also define conditional ?: to do the same above
+          // (task) => task.id===id ? {id:id, ...updatedTask}: task
+
+        })
+      })
+  }
+
+  const deleteTodoList = ( id ) => {
+      setToDoList( (prevTodoList) => {
+         // We can apply the same forloop/map here
+         // But filter is the best for this.
+         prevTodoList.filter( (task) =>{
+            
+            // For filter functions, on each element, we need to 
+            // return a boolean val, depending on which
+            // it will either be included or not included.
+
+            return (!(task.id === id))  
+              // For each task in the list, if it's ID
+            // not equal to given id then include it. otherwise dont.
+            // using !== also works here.
+         })
+      })
+  }
+
   return (
     < TodoContextProvider value={{ todoList, appendTodoList, updateTodoList, deleteTodoList, toggleComplete}}>
       <h1 className='text-3xl font-bold'>

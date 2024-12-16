@@ -17,12 +17,12 @@ export const TodoContext = createContext(
                 // Hence we need methods to change the todoList
                 // Inside the context.
 
-        appendTodoList : (todoMsg) => {}, // Its used to add new tasks to the list
+        appendTodoList : (todoTask) => {}, // Its used to add new tasks to the list
                         // Note that it doesnt need ID, since we automatically
                         // generate new ID for each task on creation
 
-        updateTodoList : (id, todoMsg) => {},
-                        // It updates the message of todoTsk with given ID
+        updateTodoList : (id, todoTask) => {},
+                        // It updates the todoTask with given ID
 
         deleteTodoList : (id) => {},
 
