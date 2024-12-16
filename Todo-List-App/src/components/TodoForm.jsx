@@ -6,24 +6,24 @@ function TodoForm() {
   // Form as well. This todoTask is bind to the input of the form.
   // Note that it actually holds a string that is task message.
   // Hence its initialized with a ''
-  const [todoTask, setTodoTask] = useState('')
+  const [todoMsg, setTodoMsg] = useState('')
   
   // Now to add this task to the todoList in the context, we need 
   // its method
   const {appendTodoList} = useTodo()
 
   // Wheneve some related trigger like button for adding task is clicked
-  // We need to get the value that resides currently in todoTask
+  // We need to get the value that resides currently in todoMsg
   // and add it to the main todoList via addtodoList
 
   const handleAddTaskBtn = (e) =>{
     e.preventDefault()
     
-    // Now check whether val exists in todoTask before adding
-    if(! todoTask) return
+    // Now check whether val exists in todoMsg before adding
+    if(! todoMsg) return
     else{
         appendTodoList(
-            {   todoTask, 
+            {   message : todoMsg, 
                 completed : False
             }
         );
@@ -31,7 +31,7 @@ function TodoForm() {
         // We need to clear the input to "" empty string so that new things
         // can be put.
 
-        setTodoTask(" ")
+        setTodoMsg(" ")
     }
   }
 
@@ -44,7 +44,7 @@ function TodoForm() {
             // Like We said earlier, We need to link this input field with
             // todoTask State. For this, lets set the task to the value of
             // this field whenver it changes.
-             onChange={ (e) => { setTodoTask( e.target.value)}}
+             onChange={ (e) => { setTodoMsg( e.target.value)}}
             />
             <button type="submit" className="rounded-r-lg px-3 py-1 bg-green-600 text-white shrink-0">
                 Add Task
