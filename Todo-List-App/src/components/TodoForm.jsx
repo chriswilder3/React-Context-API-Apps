@@ -5,6 +5,7 @@ function TodoForm() {
   // Note that we need to track the current task that was added by the
   // Form as well. This todoTask is bind to the input of the form.
   // Note that it actually holds a string that is task message.
+  // Hence its initialized with a ''
   const [todoTask, setTodoTask] = useState('')
   
   // Now to add this task to the todoList in the context, we need 
@@ -15,7 +16,7 @@ function TodoForm() {
   // We need to get the value that resides currently in todoTask
   // and add it to the main todoList via addtodoList
 
-  const handleAddBtn = (e) =>{
+  const handleAddTaskBtn = (e) =>{
     e.preventDefault()
     
     // Now check whether val exists in todoTask before adding
@@ -35,7 +36,21 @@ function TodoForm() {
   }
 
   return (
-    <div>TodoForm</div>
+    <div>
+        <form action="" onSubmit={handleAddTaskBtn} className='flex'>
+            <input type="text" name="task" id="task" 
+              placeholder=' Write To-do Task.... '
+              className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"
+            // Like We said earlier, We need to link this input field with
+            // todoTask State. For this, lets set the task to the value of
+            // this field whenver it changes.
+             onChange={ (e) => { setTodoTask( e.target.value)}}
+            />
+            <button type="submit" className="rounded-r-lg px-3 py-1 bg-green-600 text-white shrink-0">
+                Add Task
+            </button>
+        </form>
+    </div>
   )
 }
 
