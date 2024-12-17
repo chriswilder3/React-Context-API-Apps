@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import { useTodo } from '../contexts/TodoContext'
 
 function TodoItem( todoTask) {
-  // Note that todoTask will be passed to this component by someone else
+  // Note that todoTask will be passed to this component by 
+  // App.jsx , while it loops through all the tasks in the list
+  // using map, it will Display this component with each task 
+  // passed as prop.
+
   // Which we can use further adding logic for UI of one task item.
 
   // Note that we need to track whether current task
@@ -19,7 +23,7 @@ function TodoItem( todoTask) {
   // Now lets fetch methods to change the todoList values.
   const { updateTodoList, deleteTodoList, toggleComplete }  = useTodo
 
-  const editableBtnHandle = () => {
+  const editBtnHandle = () => {
         // As written in App.jsx, we need to pass the id of task
         // and todoTask( with the new updated message in it )
         updateTodoList( todoTask.id, { ...todoTask, message : todoMsg})
@@ -80,6 +84,47 @@ function TodoItem( todoTask) {
                     }
             readOnly={!isTodoTaskEditable}
         />
+
+        <button type='button'
+          className='inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50'
+          onClick={ () =>{
+            // Note this btn acts as both save and edit btn depending on
+            // whether task is editable or not.
+
+            if( todoTask.completed) return
+            if(isTodoTaskEditable){
+              // If the todo task is editable, and user clicks this
+              // button after editing the text of this field, then
+              // we need to update the current task with that text.
+              // This is defined the editBtnHandle fucn.
+
+              // This is when the button acts as save btn
+              editBtnHandle()
+            }else{
+              // What happens if user clicks on this edit button when
+              // the task is not editable ( ie, input field
+              // not active for task), then this edit btn click should allow 
+              // for editing it, by toggling isTodoTaskEditable.
+
+              // This is when this btn acts as Edit btn
+              setIsTodoTaskEditable( (prev) => !prev )
+            }
+          }}
+
+          disabled= {todoTask.completed}
+          // When the task is already completed, Dont allow either editing
+          // or saving funcn.
+          >
+            { isTodoTaskEditable ?  "📁" : "✏️"}
+        </button>
+
+        {/* This is a delete btn */}
+        <button
+          className='inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0'
+          onClick={deleteTodoList(todoTask.id)}
+          >
+           ❌
+        </button>
 
 
     </div>

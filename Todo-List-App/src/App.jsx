@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 
 import './App.css'
 import { TodoContextProvider, useTodo } from './contexts/TodoContext'
+import TodoForm from './components/TodoForm';
+import TodoItem from './components/TodoItem';
 
 function App() {
   const [todoList, setToDoList ] = useState([])
@@ -141,9 +143,18 @@ function App() {
 
   return (
     < TodoContextProvider value={{ todoList, appendTodoList, updateTodoList, deleteTodoList, toggleComplete}}>
-      <h1 className='text-3xl font-bold'>
-        To-do List App
-      </h1>
+      <TodoForm />
+      {
+        todoList.map( (task) => 
+          ( 
+            <div  key={task.id}>
+              {/* Key is given for React optimization  */}
+              < TodoItem todoTask={task} />
+                {/* Remember the todoTask is the prop received by the TodoItem */}
+            </div>
+          )
+        )
+      }
       
     </ TodoContextProvider>
   )
