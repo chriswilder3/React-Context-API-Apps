@@ -32,7 +32,7 @@ export const TodoContext = createContext(
                 // completed flag must set be set/ unset
                 // A special method is dedicated to this operation
 
-        toggleComplete : (id) = {}
+        toggleComplete : (id) => {}
                 
     }
 )

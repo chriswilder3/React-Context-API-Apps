@@ -142,21 +142,31 @@ function App() {
   }, [ todoList])
 
   return (
-    < TodoContextProvider value={{ todoList, appendTodoList, updateTodoList, deleteTodoList, toggleComplete}}>
-      <TodoForm />
-      {
-        todoList.map( (task) => 
-          ( 
-            <div  key={task.id}>
-              {/* Key is given for React optimization  */}
-              < TodoItem todoTask={task} />
-                {/* Remember the todoTask is the prop received by the TodoItem */}
-            </div>
-          )
-        )
-      }
-      
+    
+      < TodoContextProvider value={{ todoList, appendTodoList, updateTodoList, deleteTodoList, toggleComplete}}>
+            <div className="bg-[#172842] min-h-screen py-8">
+                <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">         
+                  <h1 className="text-2xl font-bold text-center mb-8 mt-2">Manage Your Todos</h1>
+                    <div className="mb-4">
+                      <TodoForm />
+                    </div>
+                    <div className="flex flex-wrap gap-y-3">
+                      {
+                        todoList.map( (task) => 
+                          ( 
+                            <div  key={task.id}>
+                              {/* Key is given for React optimization  */}
+                              < TodoItem todoTask={task} />
+                                {/* Remember the todoTask is the prop received by the TodoItem */}
+                            </div>
+                          )
+                        )
+                      }
+                    </div>
+              </div>
+          </div> 
     </ TodoContextProvider>
+      
   )
 }
 

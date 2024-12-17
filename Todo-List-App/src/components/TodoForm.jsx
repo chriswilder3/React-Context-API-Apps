@@ -46,7 +46,8 @@ function TodoForm() {
             // this field whenver it changes.
              onChange={ (e) => { setTodoMsg( e.target.value)}}
             />
-            <button type="submit" className="rounded-r-lg px-3 py-1 bg-green-600 text-white shrink-0">
+            <button type="submit" className="rounded-r-lg px-3 py-1 bg-green-600 text-white shrink-0"
+              onClick={handleAddTaskBtn}>
                 Add Task
             </button>
         </form>
